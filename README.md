@@ -25,7 +25,7 @@ Implemented:
 
 In progress:
 
-- [ ] Start screen
+- [x] Start screen
 - [ ] Mission selection
 - [ ] Mission HUD
 - [ ] First playable mission

@@ -15,20 +15,26 @@ export default function MissionPage() {
   const [result, setResult] = useState<ReturnType<
     typeof completeMissionAttempt
   > | null>(null);
+  const [showQuestion, setShowQuestion] = useState(true);
 
   if (!mission) {
-    debugger
     return <h1>Mission not found</h1>;
   }
 
   function handleSubmit(answer: number) {
     const player = loadPlayer();
 
-    const evaluation = completeMissionAttempt(player, mission, answer);
+    // mission is guaranteed to exist here due to the early return above
+    const evaluation = completeMissionAttempt(player, mission!, answer);
 
     savePlayer(evaluation.player);
 
     setResult(evaluation);
+    setShowQuestion(false);
+  }
+
+  function handleClose() {
+    navigate("/");
   }
 
   if (result) {
@@ -47,7 +53,12 @@ export default function MissionPage() {
 
   return (
     <main>
-      <Question mission={mission} onSubmit={handleSubmit} />
+      <Question
+        mission={mission}
+        onSubmit={handleSubmit}
+        isOpen={showQuestion}
+        onClose={handleClose}
+      />
     </main>
   );
 }

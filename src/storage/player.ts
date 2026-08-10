@@ -1,7 +1,6 @@
 export interface PlayerState {
     xp: number;
     completedMissions: string[];
-    unlockedMissions: string[];
 }
 
 const STORAGE_KEY = "react-hooks-quest-player";
@@ -9,7 +8,6 @@ const STORAGE_KEY = "react-hooks-quest-player";
 export const initialPlayerState: PlayerState = {
     xp: 0,
     completedMissions: [],
-    unlockedMissions: ["state-001"],
 };
 
 export function loadPlayer(): PlayerState {

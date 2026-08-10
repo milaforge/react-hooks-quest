@@ -25,36 +25,10 @@ export function completeMission(
         return player;
     }
 
-
     return {
         ...player,
-
         completedMissions: [
             ...player.completedMissions,
-            missionId,
-        ],
-    };
-
-}
-
-
-export function unlockMission(
-    player: PlayerState,
-    missionId: string
-): PlayerState {
-
-    if (
-        player.unlockedMissions.includes(missionId)
-    ) {
-        return player;
-    }
-
-
-    return {
-        ...player,
-
-        unlockedMissions: [
-            ...player.unlockedMissions,
             missionId,
         ],
     };

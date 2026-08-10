@@ -9,9 +9,6 @@ import type { PlayerState } from "../storage/player";
 const basePlayer: PlayerState = {
     xp: 0,
     completedMissions: [],
-    unlockedMissions: [
-        "state-001",
-    ],
 };
 
 describe("progression", () => {
@@ -67,36 +64,3 @@ describe("completeMission", () => {
     });
 
 });
-
-describe("unlockMission", () => {
-
-    it("adds unlocked mission", () => {
-        const result =
-            unlockMission(
-                basePlayer,
-                "state-002"
-            );
-
-
-        expect(result.unlockedMissions)
-            .toContain("state-002");
-
-        expect(result.unlockedMissions)
-            .toHaveLength(2);
-    });
-
-
-    it("does not duplicate unlocked missions", () => {
-        const result =
-            unlockMission(
-                basePlayer,
-                "state-001"
-            );
-
-
-        expect(result.unlockedMissions)
-            .toHaveLength(1);
-    });
-
-});
-

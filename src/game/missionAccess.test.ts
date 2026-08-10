@@ -1,5 +1,5 @@
 import {
-    canStartMission,
+    isMissionUnlocked,
 } from "./missionAccess";
 
 describe("mission access", () => {
@@ -8,15 +8,13 @@ describe("mission access", () => {
         const player = {
             xp: 0,
             completedMissions: [],
-            unlockedMissions: [
-                "state-001",
-            ],
         };
 
         expect(
-            canStartMission(
+            isMissionUnlocked(
                 player,
-                "state-001"
+                0,
+                0
             )
         ).toBe(true);
     });
@@ -26,13 +24,13 @@ describe("mission access", () => {
         const player = {
             xp: 0,
             completedMissions: [],
-            unlockedMissions: [],
         };
 
         expect(
-            canStartMission(
+            isMissionUnlocked(
                 player,
-                "state-001"
+                0,
+                1,
             )
         ).toBe(false);
     });

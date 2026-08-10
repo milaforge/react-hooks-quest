@@ -23,7 +23,6 @@ describe("player storage", () => {
     const player = {
       xp: 20,
       completedMissions: ["state-001"],
-      unlockedMissions: ["state-001"],
     };
 
     savePlayer(player);
@@ -37,7 +36,6 @@ describe("player storage", () => {
     savePlayer({
       xp: 50,
       completedMissions: ["state-001"],
-      unlockedMissions: ["state-001"],
     });
 
 

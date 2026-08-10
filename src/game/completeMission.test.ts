@@ -26,9 +26,6 @@ const mission: Mission = {
 const player: PlayerState = {
     xp: 0,
     completedMissions: [],
-    unlockedMissions: [
-        "state-001",
-    ],
 };
 
 

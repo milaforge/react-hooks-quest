@@ -3,18 +3,25 @@ import type { Mission } from "../missions/types";
 interface Props {
   mission: Mission;
   unlocked: boolean;
+  completed: boolean;
   onSelect: () => void;
 }
 
-export function MissionCard({ mission, unlocked, onSelect }: Props) {
+export function MissionCard({ mission, unlocked, completed, onSelect }: Props) {
   return (
     <article>
-      <h2>{unlocked ? mission.title : "🔒 Locked"}</h2>
+      <h2>
+        {completed
+          ? `✅ ${mission.title}`
+          : unlocked
+            ? mission.title
+            : "🔒 Locked"}
+      </h2>
 
       <p>+{mission.xp} XP</p>
 
       <button disabled={!unlocked} onClick={onSelect}>
-        {unlocked ? "Start" : "Locked"}
+        {completed ? "Replay" : unlocked ? "Start" : "Locked"}
       </button>
     </article>
   );

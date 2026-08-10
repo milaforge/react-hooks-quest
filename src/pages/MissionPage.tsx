@@ -15,7 +15,6 @@ export default function MissionPage() {
   const [result, setResult] = useState<ReturnType<
     typeof completeMissionAttempt
   > | null>(null);
-  const [showQuestion, setShowQuestion] = useState(true);
 
   if (!mission) {
     return <h1>Mission not found</h1>;
@@ -30,25 +29,16 @@ export default function MissionPage() {
     savePlayer(evaluation.player);
 
     setResult(evaluation);
-    setShowQuestion(false);
+    // Don't close the modal - keep it open to show feedback
+  }
+
+  function handleContinue() {
+    // Navigate back to home after user clicks Continue
+    navigate("/");
   }
 
   function handleClose() {
     navigate("/");
-  }
-
-  if (result) {
-    return (
-      <main>
-        <h1>{result.correct ? "✅ Correct" : "❌ Incorrect"}</h1>
-
-        <p>{result.explanation}</p>
-
-        <p>XP +{result.xp}</p>
-
-        <button onClick={() => navigate("/")}>Continue</button>
-      </main>
-    );
   }
 
   return (
@@ -56,8 +46,10 @@ export default function MissionPage() {
       <Question
         mission={mission}
         onSubmit={handleSubmit}
-        isOpen={showQuestion}
+        isOpen={true}
         onClose={handleClose}
+        feedback={result}
+        onContinue={handleContinue}
       />
     </main>
   );

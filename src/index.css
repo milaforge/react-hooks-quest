@@ -277,6 +277,35 @@ code {
   box-shadow: 0 4px 12px rgba(170, 59, 255, 0.15);
 }
 
+/* Correct Answer Highlight (when feedback shown) */
+.answer-card.correct-answer {
+  border-color: #22c55e !important;
+  background: rgba(34, 197, 94, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+.answer-card.correct-answer .answer-indicator {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: white;
+}
+
+.answer-card.correct-answer .answer-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Incorrect Answer Highlight (when feedback shown) */
+.answer-card.incorrect-answer {
+  border-color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.15) !important;
+}
+
+.answer-card.incorrect-answer .answer-indicator {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
 .answer-card.selected .answer-indicator {
   background: var(--accent);
   border-color: var(--accent);
@@ -409,6 +438,136 @@ code {
   .submit-button:hover:not(:disabled) {
     box-shadow: 0 8px 20px rgba(192, 132, 252, 0.4);
   }
+
+  .feedback-area.incorrect {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+  }
+
+  .feedback-area.correct {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.4);
+    color: #86efac;
+  }
+
+  .answer-card.correct-answer {
+    border-color: #4ade80 !important;
+    background: rgba(34, 197, 94, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  }
+
+  .answer-card.correct-answer .answer-indicator {
+    background: #22c55e;
+    border-color: #22c55e;
+  }
+
+  .answer-card.incorrect-answer {
+    border-color: #f87171 !important;
+    background: rgba(239, 68, 68, 0.2) !important;
+  }
+
+  .answer-card.incorrect-answer .answer-indicator {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+}
+
+/* Shake Animation for Incorrect Answer */
+@keyframes modalShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-8px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(8px);
+  }
+}
+
+.modal-content.shake {
+  animation: modalShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3), var(--shadow);
+}
+
+/* Feedback Styles */
+.feedback-area {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  animation: feedbackSlideIn 0.3s ease-out;
+}
+
+.feedback-area.incorrect {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+}
+
+.feedback-area.correct {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #16a34a;
+}
+
+@keyframes feedbackSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feedback-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-text {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+/* Continue Button */
+.continue-button {
+  margin-top: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: white;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(170, 59, 255, 0.3);
+  width: 100%;
+}
+
+.continue-button:hover:not(:disabled) {
+  background: #9333e0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(170, 59, 255, 0.4);
+}
+
+.continue-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(170, 59, 255, 0.3);
+}
+
+.continue-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-bg), 0 4px 12px rgba(170, 59, 255, 0.3);
 }
 
 /* Reduced motion */
@@ -416,13 +575,19 @@ code {
   .answer-card,
   .answer-indicator,
   .answer-check,
-  .submit-button {
+  .submit-button,
+  .modal-content.shake {
     transition: none;
+    animation: none;
   }
 
   .answer-card.visible {
     opacity: 1;
     transform: none;
+  }
+
+  .feedback-area {
+    animation: none;
   }
 }
 

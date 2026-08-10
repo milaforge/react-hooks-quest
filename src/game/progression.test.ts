@@ -1,7 +1,6 @@
 import {
     addXP,
     completeMission,
-    unlockMission,
 } from "./progression";
 
 import type { PlayerState } from "../storage/player";

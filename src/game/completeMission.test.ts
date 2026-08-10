@@ -7,7 +7,6 @@ import type { Mission } from "../missions/types";
 
 const mission: Mission = {
     id: "state-001",
-    chapter: "useState",
     title: "Remembering Values",
     question:
         "Which Hook stores values between renders?",

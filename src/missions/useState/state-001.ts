@@ -1,10 +1,8 @@
 import type { Mission } from "../types";
 
-
 export const state001: Mission = {
     id: "state-001",
-    chapter: "useState",
-    title: "Remembering Values",
+    title: "State Basics",
     question:
         "Which Hook allows a component to remember values between renders?",
     answers: [

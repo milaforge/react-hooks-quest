@@ -8,6 +8,19 @@ describe("missions", () => {
             .toBeGreaterThan(0);
     });
 
+    it("mission ids are unique", () => {
+        const ids = missions.map(m => m.id);
+        expect(new Set(ids).size)
+            .toBe(ids.length);
+    });
+
+    it("every mission has exactly four answers", () => {
+        missions.forEach(mission => {
+            expect(mission.answers)
+                .toHaveLength(4);
+        });
+    });
+
     it("has a valid mission structure", () => {
         const mission = missions[0];
 

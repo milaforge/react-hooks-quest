@@ -22,14 +22,13 @@ Implemented:
 - [x] Mission data model
 - [x] Answer evaluation
 - [x] Mission completion logic
+- [x] Start screen
+- [x] Mission selection
+- [x] Mission HUD
+- [x] First playable mission
 
 In progress:
-
-- [x] Start screen
-- [ ] Mission selection
-- [ ] Mission HUD
-- [ ] First playable mission
-
+- [ ] Polish UI
 ---
 
 ## Features

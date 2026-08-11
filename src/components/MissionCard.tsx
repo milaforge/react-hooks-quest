@@ -5,46 +5,57 @@ interface Props {
   unlocked: boolean;
   completed: boolean;
   onSelect: () => void;
+  /** 1‑based index of the mission within its chapter. If provided it replaces the mission title. */
+  index?: number;
 }
 
-export function MissionCard({ mission, unlocked, completed, onSelect }: Props) {
+export function getMissionCardState(unlocked: boolean, completed: boolean) {
+  if (completed) {
+    return "completed";
+  }
+
+  if (unlocked) {
+    return "ready";
+  }
+
+  return "locked";
+}
+
+export function MissionCard({ mission, unlocked, completed, onSelect, index }: Props) {
+  const displayTitle = index !== undefined ? String(index) : mission.title;
+  const state = getMissionCardState(unlocked, completed);
+  const actionLabel = completed
+    ? `Replay mission ${displayTitle}`
+    : unlocked
+      ? `Start mission ${displayTitle}`
+      : `Mission ${displayTitle} locked`;
+
   return (
-    <article className={`mission-card ${completed ? "completed" : ""} ${!unlocked ? "locked" : ""}`}>
-      <div className="mission-card-inner">
+    <article className={`mission-row ${state}`}>
+      <button
+        type="button"
+        className="mission-icon-button"
+        onClick={onSelect}
+        aria-label={actionLabel}
+        disabled={!unlocked}
+      >
         <div className="mission-icon" aria-hidden="true">
           {completed ? (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="2" />
-              <path d="M6 10L9 13L14 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <circle cx="13" cy="13" r="11" fill="currentColor" />
+              <path d="M8.5 13.2L11.5 16.2L17.5 9.8" stroke="#fff" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           ) : (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2Z" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M10 6V10L13 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <>
+              {unlocked && <span className="mission-start-bubble">START</span>}
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <circle cx="13" cy="13" r="11" fill="currentColor" />
+                <path d="M13 6.2L14.98 10.24L19.44 10.88L16.22 13.98L16.98 18.42L13 16.32L9.02 18.42L9.78 13.98L6.56 10.88L11.02 10.24L13 6.2Z" fill="#fff" />
+              </svg>
+            </>
           )}
         </div>
-        <div className="mission-info">
-          <h3 className="mission-title">{mission.title}</h3>
-          <p className="mission-xp">+{mission.xp} XP</p>
-        </div>
-        <button
-          className="mission-button"
-          disabled={!unlocked}
-          onClick={onSelect}
-          aria-disabled={!unlocked}
-        >
-          {completed ? "Replay" : unlocked ? "Start" : "Locked"}
-        </button>
-      </div>
-      {!unlocked && (
-        <div className="mission-lock-overlay" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <rect x="3" y="5" width="10" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M5 5V4C5 2.89543 5.89543 2 7 2H9C10.1046 2 11 2.89543 11 4V5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-      )}
+      </button>
     </article>
   );
 }

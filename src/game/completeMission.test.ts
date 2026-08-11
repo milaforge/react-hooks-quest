@@ -67,6 +67,14 @@ describe("complete mission attempt", () => {
 
         expect(result.player.xp)
             .toBe(0);
+
+        expect(result.correct)
+            .toBe(false);
+
+        expect(result.explanation)
+            .toBe(
+                "useState stores values between renders."
+            );
     });
 
 
@@ -101,6 +109,11 @@ describe("complete mission attempt", () => {
 
         expect(result.correct)
             .toBe(true);
+
+        expect(result.explanation)
+            .toBe(
+                "useState stores values between renders."
+            );
     });
 
 });

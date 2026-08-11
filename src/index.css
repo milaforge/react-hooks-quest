@@ -264,6 +264,11 @@ code {
   transform: translateY(0);
 }
 
+.answer-card.dimmed {
+  opacity: 0.5;
+  filter: saturate(0.75);
+}
+
 .answer-card:hover:not(.selected) {
   border-color: var(--accent-border);
   background: var(--accent-bg);
@@ -310,6 +315,10 @@ code {
 .answer-card.incorrect-answer .answer-indicator {
   border-color: #ef4444;
   color: #ef4444;
+}
+
+.answer-card.incorrect-answer.shake {
+  animation: answerShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
 .answer-card.selected .answer-indicator {
@@ -503,6 +512,29 @@ code {
   }
 }
 
+@keyframes answerShake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-6px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+
 .modal-content.shake {
   animation: modalShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
   border-color: #ef4444 !important;
@@ -555,6 +587,11 @@ code {
   line-height: 1.5;
 }
 
+.feedback-text-xp {
+  text-align: center;
+  padding-top: 20px;
+}
+
 /* Continue Button */
 .continue-button {
   margin-top: 0.5rem;
@@ -595,7 +632,8 @@ code {
   .answer-indicator,
   .answer-check,
   .submit-button,
-  .modal-content.shake {
+  .modal-content.shake,
+  .answer-card.incorrect-answer.shake {
     transition: none;
     animation: none;
   }

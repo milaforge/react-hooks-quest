@@ -1,17 +1,11 @@
-import { useStateChapter } from "./useState";
-import { useEffectChapter } from "./useEffect";
-import { useRefChapter } from "./useRef";
+
 import type { Chapter } from "./types";
+import {
+    reactHooksChapters as chapters,
+    allReactHooksMissions as missions,
+} from "./chapters";
 
-export const chapters = [
-    useStateChapter,
-    useEffectChapter,
-    useRefChapter,
-];
-
-export const missions = chapters.flatMap(
-    chapter => chapter.missions
-);
+export { chapters, missions };
 
 export const missionsById = new Map(
     missions.map(m => [m.id, m])

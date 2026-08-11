@@ -1,5 +1,5 @@
 import type { PlayerState } from "../storage/player";
-import { chapters } from "../missions/index";
+import { chapters } from "../missions";
 
 export function isMissionUnlocked(
     player: PlayerState,

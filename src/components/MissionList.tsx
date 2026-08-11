@@ -22,15 +22,25 @@ export function MissionList({ player }: Props) {
           <section key={chapter.id} className="chapter">
             <header className="chapter-header chapter-separator">
               <h3 className="chapter-title">{chapter.title}</h3>
-              {chapter.description && <p className="chapter-description">{chapter.description}</p>}
+              {chapter.description && (
+                <p className="chapter-description">{chapter.description}</p>
+              )}
             </header>
 
-            <div className="chapter-missions" role="list" aria-label={`${chapter.title} missions`}>
+            <div
+              className="chapter-missions"
+              role="list"
+              aria-label={`${chapter.title} missions`}
+            >
               {chapter.missions.map((mission, missionIndex) => (
                 <MissionCard
                   key={mission.id}
                   mission={mission}
-                  unlocked={isMissionUnlocked(player, chapterIndex, missionIndex)}
+                  unlocked={isMissionUnlocked(
+                    player,
+                    chapterIndex,
+                    missionIndex,
+                  )}
                   completed={player.completedMissions.includes(mission.id)}
                   onSelect={() => navigate(`/mission/${mission.id}`)}
                   index={missionIndex + 1}

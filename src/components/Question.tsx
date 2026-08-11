@@ -25,6 +25,7 @@ export function Question({
   const [selected, setSelected] = useState<number | null>(null);
   const [visibleAnswers, setVisibleAnswers] = useState<boolean[]>([]);
   const [shakeAnswerIndex, setShakeAnswerIndex] = useState<number | null>(null);
+  const [submittedAnswerIndex, setSubmittedAnswerIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -41,15 +42,16 @@ export function Question({
       return;
     }
 
-    setShakeAnswerIndex(selected);
+    setShakeAnswerIndex(submittedAnswerIndex);
     const timer = setTimeout(() => {
       setShakeAnswerIndex(null);
     }, 500);
     return () => clearTimeout(timer);
-  }, [attempt.status, attemptEvent.id, selected]);
+  }, [attempt.status, attemptEvent.id, submittedAnswerIndex]);
 
   function handleSubmit() {
     if (selected !== null && attempt.status !== "correct") {
+      setSubmittedAnswerIndex(selected);
       onSubmit(selected);
     }
   }
@@ -100,7 +102,7 @@ export function Question({
         <div className="answers-area" role="radiogroup" aria-label="Answer options">
           {mission.answers.map((answer, index) => {
             const isSelected = selected === index;
-            const isSelectedWrong = isWrong && isSelected;
+            const isSubmittedWrong = isWrong && submittedAnswerIndex === index;
             const isShakeAnswer = shakeAnswerIndex === index;
 
             return (
@@ -111,7 +113,7 @@ export function Question({
                     ? index === correctAnswerIndex
                       ? "selected correct-answer"
                       : "dimmed"
-                    : isSelectedWrong
+                    : isSubmittedWrong
                     ? "selected incorrect-answer"
                     : isSelected
                     ? "selected"
@@ -132,7 +134,7 @@ export function Question({
                 />
                 <span className="answer-indicator" aria-hidden="true">
                   <span className="answer-letter">
-                    {isSelectedWrong ? "✕" : String.fromCharCode(65 + index)}
+                    {isSubmittedWrong ? "✕" : String.fromCharCode(65 + index)}
                   </span>
                 </span>
                 <span className="answer-text">{answer}</span>

@@ -18,8 +18,7 @@ export function getMissionById(id: string) {
 export function getNextMission(
     missionId: string
 ) {
-    for (const chapter of chapters) {
-
+    for (const [chapterIndex, chapter] of chapters.entries()) {
         const index = chapter.missions.findIndex(
             m => m.id === missionId
         );
@@ -28,7 +27,12 @@ export function getNextMission(
             continue;
         }
 
-        return chapter.missions[index + 1];
+        const nextMission = chapter.missions[index + 1];
+        if (nextMission) {
+            return nextMission;
+        }
+
+        return chapters[chapterIndex + 1]?.missions[0];
     }
 
     return undefined;

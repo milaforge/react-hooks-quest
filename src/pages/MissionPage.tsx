@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { completeMissionAttempt } from "../game/completeMissionAttempt";
 import type { AttemptEvent, AttemptState } from "../game/attemptState";
-import { getMissionById } from "../missions";
+import { getMissionById, getNextMission } from "../missions";
 import { Question } from "../components/Question";
 import { loadPlayer, savePlayer } from "../storage/player";
 
@@ -11,7 +11,8 @@ export default function MissionPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const mission = getMissionById(id!);
+  const missionId = id;
+  const mission = missionId ? getMissionById(missionId) : undefined;
 
   const [attempt, setAttempt] = useState<AttemptState>({ status: "idle" });
   const [attemptEvent, setAttemptEvent] = useState<AttemptEvent>({ id: 0 });
@@ -45,7 +46,21 @@ export default function MissionPage() {
   }
 
   function handleContinue() {
-    // Navigate back to home after user clicks Continue
+    setAttempt({ status: "idle" });
+    setAttemptEvent({ id: 0 });
+
+    if (!mission) {
+      navigate("/");
+      return;
+    }
+
+    const nextMission = getNextMission(mission.id);
+
+    if (nextMission) {
+      navigate(`/mission/${nextMission.id}`);
+      return;
+    }
+
     navigate("/");
   }
 
@@ -56,6 +71,7 @@ export default function MissionPage() {
   return (
     <main>
       <Question
+        key={mission.id}
         mission={mission}
         onSubmit={handleSubmit}
         isOpen={true}

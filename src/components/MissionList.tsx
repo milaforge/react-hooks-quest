@@ -14,7 +14,7 @@ export function MissionList({ player }: Props) {
   return (
     <section className="mission-list">
       <div className="mission-list-header">
-        <h2>Missions</h2>
+        <h2>Quests</h2>
       </div>
 
       <div className="missions-scroll" role="list" aria-label="Missions">

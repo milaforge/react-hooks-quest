@@ -4,9 +4,11 @@ interface HUDProps {
 
 export function HUD({ xp }: HUDProps) {
   return (
-    <header>
-      <h1>React Hooks Quest</h1>
-      <p>XP: {xp}</p>
+    <header className="hud">
+      <div className="hud-title" aria-label="React Hooks Quest">
+        <h1>React Hooks</h1>
+      </div>
+      <p className="hud-xp">{xp} XP</p>
     </header>
   );
 }

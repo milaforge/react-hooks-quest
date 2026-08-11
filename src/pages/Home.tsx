@@ -18,7 +18,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <main className="home-page">
       <HUD xp={player.xp} />
       <MissionList player={player} />
     </main>
